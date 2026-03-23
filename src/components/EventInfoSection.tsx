@@ -33,7 +33,7 @@ export default function EventInfoSection() {
     {
       icon: '🕛',
       label: '시간',
-      value: `낮 ${date.hour}시 ${date.minute > 0 ? date.minute + '분' : ''}`,
+      value: `오후 ${date.hour}시 ${date.minute > 0 ? date.minute + '분' : ''}`,
     },
     {
       icon: '📍',

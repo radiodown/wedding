@@ -17,30 +17,30 @@ export const weddingConfig = {
 
   // ── 신랑 / 신부
   groom: {
-    name: '진효준',
-    lastName: '진',
+    name: 'JINHYOJOON',
+    lastName: '진효준',
     phone: '010-1234-5678',
   },
   bride: {
-    name: '김민진',
-    lastName: '김',
+    name: 'KIMMINJIN',
+    lastName: '김민진',
     phone: '010-8765-4321',
   },
 
   // ── 예식 일시
   date: {
-    year: 2025,
+    year: 2026,
     month: 6,
     day: 14,
-    hour: 12,
-    minute: 0,
-    /** 토요일 등 요일 문자열 */
-    dayOfWeek: '토요일',
+    hour: 1,
+    minute: 40,
+    /** 일요일 등 요일 문자열 */
+    dayOfWeek: '일요일',
   },
 
   // ── 예식장
   venue: {
-    name: '더채플 웨딩홀',
+    name: '가천컨벤션센터',
     hall: '2층 그랜드홀',
     address: '서울특별시 강남구 테헤란로 123',
     lat: 37.5065,
@@ -81,6 +81,6 @@ export const weddingConfig = {
 
   // ── OG / SEO
   siteTitle: '진효준 ♥ 김민진 결혼합니다',
-  siteDescription: '2025년 6월 14일 토요일, 더채플 웨딩홀에서 결혼합니다.',
+  siteDescription: '2026년 6월 14일 일요일, 가천컨벤션센터에서 결혼합니다.',
   siteUrl: 'https://yourusername.github.io/wedding/',
 }

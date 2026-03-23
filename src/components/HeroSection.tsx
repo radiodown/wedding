@@ -4,7 +4,8 @@ import { weddingConfig } from '../data/wedding'
 export default function HeroSection() {
   const { groom, bride, date } = weddingConfig
 
-  const dateStr = `${date.year}년 ${date.month}월 ${date.day}일 ${date.dayOfWeek} 낮 ${date.hour}시`
+  const timeStr = date.minute === 0 ? `${date.hour}시` : `${date.hour}시 ${date.minute}분`
+  const dateStr = `${date.year}년 ${date.month}월 ${date.day}일 ${date.dayOfWeek}  ${timeStr}`
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg">
