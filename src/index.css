@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap');
+@import "tailwindcss";
+
+/* ── Theme variables: change these per data-theme ── */
+:root,
+[data-theme="warm-ivory"] {
+  --w-bg: #FDFAF6;
+  --w-primary: #C9A97A;
+  --w-primary-light: #EDD9B8;
+  --w-text: #3D2B1F;
+  --w-text-sub: #7A6355;
+  --w-surface: #F5EFE6;
+  --w-border: #E5D5C0;
+}
+
+[data-theme="modern-white"] {
+  --w-bg: #FFFFFF;
+  --w-primary: #4A7C59;
+  --w-primary-light: #A8C5B4;
+  --w-text: #1A1A1A;
+  --w-text-sub: #5A5A5A;
+  --w-surface: #F4F7F5;
+  --w-border: #D4E4DA;
+}
+
+[data-theme="soft-blush"] {
+  --w-bg: #FFF0F0;
+  --w-primary: #C4788A;
+  --w-primary-light: #E8B4BF;
+  --w-text: #3D1F2B;
+  --w-text-sub: #7A5060;
+  --w-surface: #FADADD;
+  --w-border: #F0C0C8;
+}
+
+[data-theme="deep-navy"] {
+  --w-bg: #0F1F3D;
+  --w-primary: #C9A73A;
+  --w-primary-light: #E8CC80;
+  --w-text: #F5F0E8;
+  --w-text-sub: #B8A898;
+  --w-surface: #1A2E52;
+  --w-border: #2A3F6A;
+}
+
+/* ── Tailwind v4: inline theme tokens referencing CSS vars ── */
+@theme inline {
+  --color-bg: var(--w-bg);
+  --color-primary: var(--w-primary);
+  --color-primary-light: var(--w-primary-light);
+  --color-text-main: var(--w-text);
+  --color-text-sub: var(--w-text-sub);
+  --color-surface: var(--w-surface);
+  --color-border: var(--w-border);
+
+  --font-serif: "Noto Serif KR", serif;
+  --font-sans: "Noto Sans KR", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--w-bg);
+  color: var(--w-text);
+  font-family: "Noto Sans KR", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,116 @@
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { weddingConfig } from '../data/wedding'
+import { useClipboard } from '../hooks/useClipboard'
+
+export default function ContactSection() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const { contacts, accounts, siteUrl } = weddingConfig
+  const { copy: copyLink, copied: linkCopied } = useClipboard()
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      await navigator.share({
+        title: weddingConfig.siteTitle,
+        text: weddingConfig.siteDescription,
+        url: siteUrl,
+      }).catch(() => {})
+    } else {
+      copyLink(siteUrl)
+    }
+  }
+
+  return (
+    <section ref={ref} className="py-20 px-6 bg-surface">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="max-w-sm mx-auto"
+      >
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="w-12 h-px bg-primary-light" />
+          <span className="text-primary text-xl">✦</span>
+          <div className="w-12 h-px bg-primary-light" />
+        </div>
+
+        <h2 className="font-serif text-2xl text-text-main text-center mb-8 tracking-wide">연락 및 안내</h2>
+
+        {/* 연락처 */}
+        <div className="mb-8">
+          <h3 className="text-sm text-text-sub font-medium mb-3 text-center">연락처</h3>
+          <div className="space-y-2">
+            {contacts.map((person) => (
+              <div key={person.role} className="flex items-center justify-between bg-bg rounded-xl px-4 py-3 border border-border">
+                <div>
+                  <p className="text-xs text-text-sub">{person.role}</p>
+                  <p className="text-text-main text-sm font-medium">{person.name}</p>
+                </div>
+                <a
+                  href={`tel:${person.phone.replace(/-/g, '')}`}
+                  className="flex items-center gap-1.5 bg-primary text-bg text-xs px-4 py-2 rounded-full active:scale-95 transition-transform"
+                >
+                  <span>📞</span>
+                  <span>전화</span>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 계좌 정보 */}
+        <div className="mb-8">
+          <h3 className="text-sm text-text-sub font-medium mb-3 text-center">마음 전하기</h3>
+          <div className="space-y-2">
+            {accounts.map((acc) => (
+              <AccountCard key={acc.label} account={acc} />
+            ))}
+          </div>
+        </div>
+
+        {/* 공유 */}
+        <div>
+          <h3 className="text-sm text-text-sub font-medium mb-3 text-center">청첩장 공유</h3>
+          <button
+            onClick={handleShare}
+            className="w-full flex items-center justify-center gap-2 bg-primary text-bg py-4 rounded-2xl font-medium text-sm active:scale-95 transition-transform shadow-md"
+          >
+            <span>🔗</span>
+            <span>{linkCopied ? '링크 복사됨!' : '청첩장 공유하기'}</span>
+          </button>
+        </div>
+
+        {/* 하단 서명 */}
+        <div className="mt-16 text-center">
+          <p className="font-serif text-text-sub text-sm">
+            {weddingConfig.groom.name} &amp; {weddingConfig.bride.name}
+          </p>
+          <p className="text-text-sub text-xs mt-1 opacity-60">
+            {weddingConfig.date.year}.{String(weddingConfig.date.month).padStart(2, '0')}.{String(weddingConfig.date.day).padStart(2, '0')}
+          </p>
+          <p className="text-primary text-2xl mt-3">♥</p>
+        </div>
+      </motion.div>
+    </section>
+  )
+}
+
+function AccountCard({ account }: { account: { bank: string; number: string; holder: string; label: string } }) {
+  const { copy, copied } = useClipboard()
+  return (
+    <div className="bg-bg rounded-xl px-4 py-3 border border-border flex items-center justify-between">
+      <div>
+        <p className="text-xs text-text-sub mb-0.5">{account.label} ({account.bank})</p>
+        <p className="text-text-main text-sm font-medium font-mono">{account.number}</p>
+        <p className="text-text-sub text-xs">{account.holder}</p>
+      </div>
+      <button
+        onClick={() => copy(account.number)}
+        className="bg-primary text-bg text-xs px-4 py-2 rounded-full whitespace-nowrap active:scale-95 transition-transform"
+      >
+        {copied ? '복사됨!' : '복사'}
+      </button>
+    </div>
+  )
+}
