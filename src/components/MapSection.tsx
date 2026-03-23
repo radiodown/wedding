@@ -129,36 +129,33 @@ function NavBtn({ href, label, icon }: { href: string; label: string; icon: Reac
 }
 
 
+let kakaoLoadPromise: Promise<void> | null = null
+
+function loadKakaoScript(apiKey: string): Promise<void> {
+  if (kakaoLoadPromise) return kakaoLoadPromise
+  kakaoLoadPromise = new Promise((resolve) => {
+    if ((window as any).kakao?.maps) { resolve(); return }
+    const script = document.createElement('script')
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&autoload=false`
+    script.onload = () => (window as any).kakao.maps.load(resolve)
+    document.head.appendChild(script)
+  })
+  return kakaoLoadPromise
+}
+
 function KakaoMapEmbed({ lat, lng, name, apiKey }: { lat: number; lng: number; name: string; apiKey: string }) {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let cancelled = false
-
-    const initMap = () => {
-      if (cancelled || !mapRef.current) return
+    loadKakaoScript(apiKey).then(() => {
+      if (!mapRef.current) return
       const kakao = (window as any).kakao
       const center = new kakao.maps.LatLng(lat, lng)
       const map = new kakao.maps.Map(mapRef.current, { center, level: 4 })
       const marker = new kakao.maps.Marker({ position: center, map })
       const info = new kakao.maps.InfoWindow({ content: `<div style="padding:6px 12px;font-size:13px;">${name}</div>` })
       info.open(map, marker)
-    }
-
-    const existingScript = document.querySelector('script[src*="dapi.kakao.com"]')
-
-    if ((window as any).kakao?.maps) {
-      initMap()
-    } else if (!existingScript) {
-      const script = document.createElement('script')
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&autoload=false`
-      script.onload = () => (window as any).kakao.maps.load(initMap)
-      document.head.appendChild(script)
-    } else {
-      (window as any).kakao?.maps?.load(initMap)
-    }
-
-    return () => { cancelled = true }
+    })
   }, [lat, lng, name, apiKey])
 
   return <div ref={mapRef} className="absolute inset-0" />
