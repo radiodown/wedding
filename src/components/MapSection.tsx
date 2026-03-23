@@ -34,11 +34,11 @@ export default function MapSection() {
         </div>
 
         {/* 지도 */}
-        <div className="overflow-hidden border-y border-border mb-4 aspect-[4/3] bg-surface flex items-center justify-center">
+        <div className="overflow-hidden border-y border-border mb-4 aspect-[4/3] bg-surface relative">
           {KAKAO_KEY ? (
             <KakaoMapEmbed lat={venue.lat} lng={venue.lng} name={venue.name} apiKey={KAKAO_KEY} />
           ) : (
-            <div className="flex flex-col items-center gap-2 text-text-sub p-6 text-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-text-sub p-6 text-center">
               <span className="text-4xl">🗺️</span>
               <p className="text-sm">카카오지도 API 키를 설정하면<br />지도가 여기 표시됩니다.</p>
             </div>
@@ -133,8 +133,10 @@ function KakaoMapEmbed({ lat, lng, name, apiKey }: { lat: number; lng: number; n
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let cancelled = false
+
     const initMap = () => {
-      if (!mapRef.current) return
+      if (cancelled || !mapRef.current) return
       const kakao = (window as any).kakao
       const center = new kakao.maps.LatLng(lat, lng)
       const map = new kakao.maps.Map(mapRef.current, { center, level: 4 })
@@ -143,17 +145,21 @@ function KakaoMapEmbed({ lat, lng, name, apiKey }: { lat: number; lng: number; n
       info.open(map, marker)
     }
 
+    const existingScript = document.querySelector('script[src*="dapi.kakao.com"]')
+
     if ((window as any).kakao?.maps) {
       initMap()
-    } else if (!(window as any).kakao) {
+    } else if (!existingScript) {
       const script = document.createElement('script')
       script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&autoload=false`
       script.onload = () => (window as any).kakao.maps.load(initMap)
       document.head.appendChild(script)
     } else {
-      (window as any).kakao.maps.load(initMap)
+      (window as any).kakao?.maps?.load(initMap)
     }
+
+    return () => { cancelled = true }
   }, [lat, lng, name, apiKey])
 
-  return <div ref={mapRef} className="w-full h-full" />
+  return <div ref={mapRef} className="absolute inset-0" />
 }
