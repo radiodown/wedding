@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { weddingConfig } from '../data/wedding'
+import coverImg from '../assets/DSC07451.jpg'
 
 export default function HeroSection() {
   const { groom, bride, date } = weddingConfig
@@ -23,7 +24,7 @@ export default function HeroSection() {
         className="w-full max-w-sm mx-auto aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl"
       >
         <img
-          src="https://picsum.photos/seed/wedding-cover/600/800"
+          src={coverImg}
           alt="웨딩 커버"
           className="w-full h-full object-cover"
           loading="eager"
