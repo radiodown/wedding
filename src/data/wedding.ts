@@ -17,13 +17,13 @@ export const weddingConfig = {
 
   // ── 신랑 / 신부
   groom: {
-    name: '김지훈',
-    lastName: '김',
+    name: '진효준',
+    lastName: '진',
     phone: '010-1234-5678',
   },
   bride: {
-    name: '이수연',
-    lastName: '이',
+    name: '김민진',
+    lastName: '김',
     phone: '010-8765-4321',
   },
 
@@ -52,8 +52,8 @@ export const weddingConfig = {
 
   // ── 연락처
   contacts: [
-    { role: '신랑', name: '김지훈', phone: '010-1234-5678' },
-    { role: '신부', name: '이수연', phone: '010-8765-4321' },
+    { role: '신랑', name: '진효준', phone: '010-1234-5678' },
+    { role: '신부', name: '김민진', phone: '010-8765-4321' },
     { role: '신랑 아버지', name: '김대한', phone: '010-1111-2222' },
     { role: '신랑 어머니', name: '박민정', phone: '010-3333-4444' },
     { role: '신부 아버지', name: '이민준', phone: '010-5555-6666' },
@@ -62,8 +62,8 @@ export const weddingConfig = {
 
   // ── 계좌 정보
   accounts: [
-    { bank: '국민은행', number: '123-456-78901234', holder: '김지훈', label: '신랑' },
-    { bank: '신한은행', number: '110-456-789012',   holder: '이수연', label: '신부' },
+    { bank: '국민은행', number: '123-456-78901234', holder: '진효준', label: '신랑' },
+    { bank: '신한은행', number: '110-456-789012',   holder: '김민진', label: '신부' },
   ] as AccountInfo[],
 
   // ── 갤러리 (더미 — Picsum Photos 사용)
@@ -80,7 +80,7 @@ export const weddingConfig = {
   greeting: `저희 두 사람이 사랑을 맹세하고\n새로운 가정을 이루려 합니다.\n\n바쁘신 중에도 오셔서\n자리를 빛내 주시면 감사하겠습니다.`,
 
   // ── OG / SEO
-  siteTitle: '김지훈 ♥ 이수연 결혼합니다',
+  siteTitle: '진효준 ♥ 김민진 결혼합니다',
   siteDescription: '2025년 6월 14일 토요일, 더채플 웨딩홀에서 결혼합니다.',
   siteUrl: 'https://yourusername.github.io/wedding/',
 }
