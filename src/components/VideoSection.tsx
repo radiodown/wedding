@@ -13,7 +13,7 @@ export default function VideoSection() {
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="max-w-sm mx-auto"
+        className="max-w-lg mx-auto"
       >
         <div className="flex items-center justify-center gap-3 mb-8">
           <div className="w-12 h-px bg-primary-light" />
@@ -24,8 +24,8 @@ export default function VideoSection() {
         <h2 className="font-serif text-2xl text-text-main text-center mb-3 tracking-wide">웨딩 영상</h2>
         <p className="text-text-sub text-sm text-center mb-8">소중한 순간을 영상으로 담았습니다</p>
 
-        {/* 16:9 반응형 YouTube embed */}
-        <div className="relative aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-border">
+        {/* 21:9 반응형 YouTube embed */}
+        <div className="relative w-full rounded-2xl overflow-hidden shadow-lg border border-border" style={{ paddingTop: 'calc(9 / 21 * 100%)' }}>
           <iframe
             className="absolute inset-0 w-full h-full"
             src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1`}

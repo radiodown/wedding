@@ -32,7 +32,7 @@ export const weddingConfig = {
     year: 2026,
     month: 6,
     day: 14,
-    hour: 1,
+    hour: 13,
     minute: 40,
     /** 일요일 등 요일 문자열 */
     dayOfWeek: '일요일',
@@ -69,6 +69,7 @@ export const weddingConfig = {
 
   // ── 계좌 정보
   accounts: [
+    { bank: '국민은행', number: '123-456-78901234', holder: '진수연', label: '신랑' },
     { bank: '국민은행', number: '123-456-78901234', holder: '진효준', label: '신랑' },
     { bank: '신한은행', number: '110-456-789012',   holder: '김민진', label: '신부' },
   ] as AccountInfo[],
@@ -81,7 +82,7 @@ export const weddingConfig = {
   })),
 
   // ── YouTube
-  youtubeId: 'dQw4w9WgXcQ', // 실제 영상 ID로 교체
+  youtubeId: 'bADR5QowGXc',
 
   // ── 인사말
   greeting: `저희 두 사람이 사랑을 맹세하고\n새로운 가정을 이루려 합니다.\n\n바쁘신 중에도 오셔서\n자리를 빛내 주시면 감사하겠습니다.`,

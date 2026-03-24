@@ -116,19 +116,50 @@ function loadKakaoScript(apiKey: string): Promise<void> {
   return kakaoLoadPromise
 }
 
+function createVenueOverlayContent(name: string) {
+  const wrapper = document.createElement('div')
+  wrapper.style.cssText = 'display:flex;flex-direction:column;align-items:center;pointer-events:none;transform:translateY(-10px)'
+
+  const bubble = document.createElement('div')
+  bubble.textContent = name
+  bubble.style.cssText = 'padding:9px 14px;border-radius:999px;background:rgba(255,255,255,0.96);border:1px solid rgba(201,169,122,0.4);box-shadow:0 10px 24px rgba(35,24,12,0.12);color:#4f4035;font-size:12px;font-weight:600;letter-spacing:0.02em;white-space:nowrap'
+
+  const pointer = document.createElement('div')
+  pointer.style.cssText = 'width:10px;height:10px;margin-top:-1px;background:rgba(255,255,255,0.96);border-right:1px solid rgba(201,169,122,0.4);border-bottom:1px solid rgba(201,169,122,0.4);transform:rotate(45deg)'
+
+  wrapper.appendChild(bubble)
+  wrapper.appendChild(pointer)
+  return wrapper
+}
+
 function KakaoMapEmbed({ lat, lng, name, apiKey }: { lat: number; lng: number; name: string; apiKey: string }) {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let cancelled = false
+    let marker: any = null
+    let overlay: any = null
+
     loadKakaoScript(apiKey).then(() => {
-      if (!mapRef.current) return
+      if (!mapRef.current || cancelled) return
       const kakao = (window as any).kakao
       const center = new kakao.maps.LatLng(lat, lng)
       const map = new kakao.maps.Map(mapRef.current, { center, level: 4 })
-      const marker = new kakao.maps.Marker({ position: center, map })
-      const info = new kakao.maps.InfoWindow({ content: `<div style="padding:6px 12px;font-size:13px;">${name}</div>` })
-      info.open(map, marker)
+      marker = new kakao.maps.Marker({ position: center, map })
+      overlay = new kakao.maps.CustomOverlay({
+        map,
+        position: center,
+        content: createVenueOverlayContent(name),
+        xAnchor: 0.5,
+        yAnchor: 1.7,
+      })
     })
+
+    return () => {
+      cancelled = true
+      marker?.setMap?.(null)
+      overlay?.setMap?.(null)
+    }
   }, [lat, lng, name, apiKey])
 
   return <div ref={mapRef} className="w-full h-full" />

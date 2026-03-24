@@ -6,7 +6,7 @@ import { useClipboard } from '../hooks/useClipboard'
 export default function ContactSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { contacts, accounts, siteUrl } = weddingConfig
+  const { accounts, siteUrl } = weddingConfig
   const { copy: copyLink, copied: linkCopied } = useClipboard()
 
   const handleShare = async () => {
@@ -36,28 +36,6 @@ export default function ContactSection() {
         </div>
 
         <h2 className="font-serif text-2xl text-text-main text-center mb-8 tracking-wide">연락 및 안내</h2>
-
-        {/* 연락처 */}
-        <div className="mb-8">
-          <h3 className="text-sm text-text-sub font-medium mb-3 text-center">연락처</h3>
-          <div className="space-y-2">
-            {contacts.map((person) => (
-              <div key={person.role} className="flex items-center justify-between bg-bg rounded-xl px-4 py-3 border border-border">
-                <div>
-                  <p className="text-xs text-text-sub">{person.role}</p>
-                  <p className="text-text-main text-sm font-medium">{person.name}</p>
-                </div>
-                <a
-                  href={`tel:${person.phone.replace(/-/g, '')}`}
-                  className="flex items-center gap-1.5 bg-primary text-bg text-xs px-4 py-2 rounded-full active:scale-95 transition-transform"
-                >
-                  <span>📞</span>
-                  <span>전화</span>
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* 계좌 정보 */}
         <div className="mb-8">
