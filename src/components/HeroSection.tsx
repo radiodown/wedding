@@ -21,7 +21,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, scale: 1.05 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: 'easeOut' }}
-        className="w-full max-w-sm mx-auto aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl"
+        className="w-full max-w-sm mx-auto mt-4 aspect-[3/4] overflow-hidden rounded-xl shadow-2xl"
       >
         <img
           src={coverImg}

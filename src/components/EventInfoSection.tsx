@@ -73,7 +73,7 @@ export default function EventInfoSection() {
         <p className="text-center text-text-sub text-sm mb-8">{date.dayOfWeek} {timeStr}</p>
 
         {/* 캘린더 */}
-        <div className="bg-bg rounded-2xl border border-border p-5 mb-6 shadow-sm">
+        <div className="bg-bg rounded-xl p-5 mb-6 shadow-sm">
           {/* 요일 헤더 */}
           <div className="grid grid-cols-7 mb-2">
             {['일', '월', '화', '수', '목', '금', '토'].map((d, i) => (
@@ -113,7 +113,7 @@ export default function EventInfoSection() {
         </div>
 
         {/* 카운트다운 */}
-        <div className="bg-bg rounded-2xl border border-border p-5 shadow-sm text-center">
+        <div className="bg-bg rounded-xl p-5 shadow-sm text-center">
           <div className="grid grid-cols-4 gap-2 mb-3">
             {[
               { label: 'DAYS',  value: timeLeft.days },

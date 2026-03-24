@@ -34,7 +34,7 @@ export default function MapSection() {
         </div>
 
         {/* 지도 */}
-        <div className="overflow-hidden border-y border-border mb-4 aspect-[4/3] bg-surface relative">
+        <div className="overflow-hidden shadow-md rounded-md mb-4 aspect-[4/3] bg-surface relative">
           {KAKAO_KEY ? (
             <KakaoMapEmbed lat={venue.lat} lng={venue.lng} name={venue.name} apiKey={KAKAO_KEY} />
           ) : (
@@ -121,7 +121,7 @@ function NavBtn({ href, label, icon }: { href: string; label: string; icon: Reac
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center justify-center gap-1.5 border border-border rounded-2xl py-3 text-text-sub text-xs font-medium active:scale-95 transition-transform bg-bg"
+      className="flex items-center justify-center gap-1.5 border border-border rounded-lg py-3 text-text-sub text-xs font-medium active:scale-95 transition-transform bg-bg"
     >
       {icon} {label}
     </a>
@@ -143,19 +143,70 @@ function loadKakaoScript(apiKey: string): Promise<void> {
   return kakaoLoadPromise
 }
 
+function createVenueOverlayContent(name: string) {
+  const wrapper = document.createElement('div')
+  wrapper.style.display = 'flex'
+  wrapper.style.flexDirection = 'column'
+  wrapper.style.alignItems = 'center'
+  wrapper.style.pointerEvents = 'none'
+  wrapper.style.transform = 'translateY(-10px)'
+
+  const bubble = document.createElement('div')
+  bubble.textContent = name
+  bubble.style.padding = '9px 14px'
+  bubble.style.borderRadius = '999px'
+  bubble.style.background = 'rgba(255, 255, 255, 0.96)'
+  bubble.style.border = '1px solid rgba(201, 169, 122, 0.4)'
+  bubble.style.boxShadow = '0 10px 24px rgba(35, 24, 12, 0.12)'
+  bubble.style.color = '#4f4035'
+  bubble.style.fontSize = '12px'
+  bubble.style.fontWeight = '600'
+  bubble.style.letterSpacing = '0.02em'
+  bubble.style.whiteSpace = 'nowrap'
+
+  const pointer = document.createElement('div')
+  pointer.style.width = '10px'
+  pointer.style.height = '10px'
+  pointer.style.marginTop = '-1px'
+  pointer.style.background = 'rgba(255, 255, 255, 0.96)'
+  pointer.style.borderRight = '1px solid rgba(201, 169, 122, 0.4)'
+  pointer.style.borderBottom = '1px solid rgba(201, 169, 122, 0.4)'
+  pointer.style.transform = 'rotate(45deg)'
+
+  wrapper.appendChild(bubble)
+  wrapper.appendChild(pointer)
+
+  return wrapper
+}
+
 function KakaoMapEmbed({ lat, lng, name, apiKey }: { lat: number; lng: number; name: string; apiKey: string }) {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let cancelled = false
+    let marker: any = null
+    let overlay: any = null
+
     loadKakaoScript(apiKey).then(() => {
-      if (!mapRef.current) return
+      if (!mapRef.current || cancelled) return
       const kakao = (window as any).kakao
       const center = new kakao.maps.LatLng(lat, lng)
       const map = new kakao.maps.Map(mapRef.current, { center, level: 4 })
-      const marker = new kakao.maps.Marker({ position: center, map })
-      const info = new kakao.maps.InfoWindow({ content: `<div style="padding:6px 12px;font-size:13px;">${name}</div>` })
-      info.open(map, marker)
+      marker = new kakao.maps.Marker({ position: center, map })
+      overlay = new kakao.maps.CustomOverlay({
+        map,
+        position: center,
+        content: createVenueOverlayContent(name),
+        xAnchor: 0.5,
+        yAnchor: 1.7,
+      })
     })
+
+    return () => {
+      cancelled = true
+      marker?.setMap?.(null)
+      overlay?.setMap?.(null)
+    }
   }, [lat, lng, name, apiKey])
 
   return <div ref={mapRef} className="absolute inset-0" />
