@@ -44,8 +44,8 @@ export const weddingConfig = {
     hall: '5층 웨딩홀',
     address: '경기도 성남시 수정구 성남대로 1342 (복정동 620-2)',
     tel: '031-000-0000',
-    lat: 37.5065,
-    lng: 127.0536,
+    lat: 37.4497253,
+    lng: 127.127107,
     // 지하철 노선별
     subwayLines: [
       { line: '수인분당선', color: '#F5A623', detail: '가천대역 1번 출구 또는 연결통로' },

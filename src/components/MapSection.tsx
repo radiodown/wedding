@@ -9,10 +9,12 @@ export default function MapSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const { venue } = weddingConfig
+  const venueSearchKeyword = '가천대학교 가천컨벤션센터'
 
-  const naverUrl = `https://map.naver.com/v5/search/${encodeURIComponent(venue.address)}`
-  const kakaoNaviUrl = `https://map.kakao.com/link/to/${encodeURIComponent(venue.name)},${venue.lat},${venue.lng}`
-  const tmapUrl = `https://tmap.life/map?name=${encodeURIComponent(venue.name)}&lat=${venue.lat}&lon=${venue.lng}`
+  const naverUrl = `https://map.naver.com/v5/search/${encodeURIComponent(venueSearchKeyword)}`
+  const kakaoNaviUrl = `https://map.kakao.com/link/to/${encodeURIComponent(venueSearchKeyword)},${venue.lat},${venue.lng}`
+  const tmapUrl = `tmap://route?goalx=${venue.lng}&goaly=${venue.lat}&goalname=${encodeURIComponent(venueSearchKeyword)}`;
+  // const tmapUrl = `https://tmap.life/map?name=${encodeURIComponent(venueSearchKeyword)}&lat=${venue.lat}&lon=${venue.lng}`
 
   return (
     <section ref={ref} className="py-20 bg-bg">
