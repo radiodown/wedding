@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
 import { weddingConfig } from '../data/wedding'
@@ -12,7 +12,6 @@ export default function GallerySection() {
 
   const { gallery } = weddingConfig
   const slides = gallery.map((g) => ({ src: g.src }))
-  const visible = showAll ? gallery : gallery.slice(0, 6)
 
   return (
     <section ref={ref} className="py-20 px-6 bg-surface">
@@ -32,7 +31,7 @@ export default function GallerySection() {
 
         {/* Masonry-style 2-column grid */}
         <div className="columns-2 gap-3 space-y-3">
-          {visible.map((photo, i) => (
+          {gallery.slice(0, 6).map((photo, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -41,14 +40,23 @@ export default function GallerySection() {
               className="break-inside-avoid cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow"
               onClick={() => setIndex(i)}
             >
-              <img
-                src={photo.thumb}
-                alt={photo.alt}
-                loading="lazy"
-                className="w-full object-cover transition-transform duration-300 hover:scale-105"
-              />
+              <img src={photo.thumb} alt={photo.alt} loading="lazy" className="w-full object-cover transition-transform duration-300 hover:scale-105" />
             </motion.div>
           ))}
+          <AnimatePresence>
+            {showAll && gallery.slice(6).map((photo, i) => (
+              <motion.div
+                key={6 + i}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.07 * i, duration: 0.45 }}
+                className="break-inside-avoid cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                onClick={() => setIndex(6 + i)}
+              >
+                <img src={photo.thumb} alt={photo.alt} loading="lazy" className="w-full object-cover transition-transform duration-300 hover:scale-105" />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
         {!showAll && gallery.length > 6 && (

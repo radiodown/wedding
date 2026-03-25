@@ -4,6 +4,7 @@ import {
   collection, addDoc, deleteDoc, doc, query, orderBy, onSnapshot, serverTimestamp,
 } from 'firebase/firestore'
 import { db } from '../lib/firebase'
+import { weddingConfig } from '../data/wedding'
 
 interface Message {
   id: string
@@ -86,7 +87,7 @@ export default function GuestbookSection() {
 
   return (
     <>
-      <section ref={ref} className="py-20 px-6 bg-bg">
+      <section ref={ref} className="py-20 px-6 bg-surface">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -103,7 +104,7 @@ export default function GuestbookSection() {
           <p className="text-text-sub text-sm text-center mb-8">축하의 말씀을 남겨주세요</p>
 
           {/* 채팅 목록 */}
-          <div className="space-y-3 mb-6 min-h-[80px] max-h-[420px] overflow-y-auto pr-1">
+          <div className="space-y-3 mb-6 min-h-[80px] max-h-[420px] overflow-y-auto pr-1 scrollbar-thin">
             {messages.length === 0 && (
               <p className="text-center text-text-sub text-sm py-6">아직 메시지가 없습니다</p>
             )}
@@ -123,7 +124,7 @@ export default function GuestbookSection() {
                     )}
                   </div>
                   <div className="flex items-start gap-1.5">
-                    <div className="bg-surface rounded-2xl rounded-tl-none px-3.5 py-2.5 border border-border shadow-sm inline-block max-w-[80%]">
+                    <div className="bg-bg rounded-2xl rounded-tl-none px-3.5 py-2.5 border border-border shadow-sm inline-block max-w-[80%]">
                       <p className="text-text-main text-sm leading-relaxed">{msg.text}</p>
                     </div>
                     <button
@@ -149,7 +150,7 @@ export default function GuestbookSection() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={4}
-                className="flex-1 bg-bg rounded-xl px-3 py-2 text-sm text-text-main placeholder:text-text-sub outline-none border border-border focus:border-primary transition-colors"
+                className="flex-1 min-w-0 bg-bg rounded-xl px-3 py-2 text-sm text-text-main placeholder:text-text-sub outline-none border border-border focus:border-primary transition-colors"
               />
               <input
                 type="password"
@@ -157,7 +158,7 @@ export default function GuestbookSection() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 maxLength={16}
-                className="w-28 bg-bg rounded-xl px-3 py-2 text-sm text-text-main placeholder:text-text-sub outline-none border border-border focus:border-primary transition-colors"
+                className="flex-1 min-w-0 bg-bg rounded-xl px-3 py-2 text-sm text-text-main placeholder:text-text-sub outline-none border border-border focus:border-primary transition-colors"
               />
             </div>
             <textarea
@@ -176,6 +177,17 @@ export default function GuestbookSection() {
               {submitting ? '등록 중...' : '남기기'}
             </button>
           </form>
+
+          {/* 하단 서명 */}
+          <div className="mt-16 text-center">
+            <p className="font-serif text-text-sub text-sm">
+              {weddingConfig.groom.name} &amp; {weddingConfig.bride.name}
+            </p>
+            <p className="text-text-sub text-xs mt-1 opacity-60">
+              {weddingConfig.date.year}.{String(weddingConfig.date.month).padStart(2, '0')}.{String(weddingConfig.date.day).padStart(2, '0')}
+            </p>
+            <p className="text-primary text-2xl mt-3">♥</p>
+          </div>
         </motion.div>
       </section>
 

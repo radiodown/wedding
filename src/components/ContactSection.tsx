@@ -72,16 +72,6 @@ export default function ContactSection() {
           </button>
         </div>
 
-        {/* 하단 서명 */}
-        <div className="mt-16 text-center">
-          <p className="font-serif text-text-sub text-sm">
-            {weddingConfig.groom.name} &amp; {weddingConfig.bride.name}
-          </p>
-          <p className="text-text-sub text-xs mt-1 opacity-60">
-            {weddingConfig.date.year}.{String(weddingConfig.date.month).padStart(2, '0')}.{String(weddingConfig.date.day).padStart(2, '0')}
-          </p>
-          <p className="text-primary text-2xl mt-3">♥</p>
-        </div>
       </motion.div>
     </section>
   )

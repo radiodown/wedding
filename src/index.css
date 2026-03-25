@@ -80,6 +80,17 @@ html {
   scroll-behavior: smooth;
 }
 
+.scrollbar-thin::-webkit-scrollbar {
+  width: 3px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: var(--w-border);
+  border-radius: 999px;
+}
+
 body {
   background-color: var(--w-bg);
   color: var(--w-text);
