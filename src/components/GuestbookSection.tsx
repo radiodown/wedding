@@ -5,6 +5,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { weddingConfig } from '../data/wedding'
+import { containsProfanity } from '../lib/profanityFilter'
 
 interface Message {
   id: string
@@ -52,6 +53,11 @@ export default function GuestbookSection() {
     if (name.trim().length < 2 || name.trim().length > 4) return
     if (password.trim().length < 4 || password.trim().length > 16) return
     if (!text.trim()) return
+    if (containsProfanity(name) || containsProfanity(text)) {
+      alert('부적절한 표현이 포함되어 있습니다.')
+      setSubmitting(false)
+      return
+    }
     setSubmitting(true)
     try {
       const passwordHash = await hashPassword(password)
@@ -104,7 +110,7 @@ export default function GuestbookSection() {
           <p className="text-text-sub text-sm text-center mb-8">축하의 말씀을 남겨주세요</p>
 
           {/* 채팅 목록 */}
-          <div className="space-y-3 mb-6 min-h-[80px] max-h-[420px] overflow-y-auto pr-1 scrollbar-thin">
+          <div className="space-y-3 mb-6 min-h-[80px] max-h-[300px] overflow-y-auto pr-1 scrollbar-thin">
             {messages.length === 0 && (
               <p className="text-center text-text-sub text-sm py-6">아직 메시지가 없습니다</p>
             )}

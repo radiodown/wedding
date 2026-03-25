@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
+import { getAnalytics, logEvent as _logEvent, isSupported } from 'firebase/analytics'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -12,3 +13,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
+
+// Analytics (지원되는 환경에서만 초기화)
+const analyticsPromise = isSupported().then((yes) => yes ? getAnalytics(app) : null)
+
+export async function logEvent(name: string, params?: Record<string, unknown>) {
+  const analytics = await analyticsPromise
+  if (analytics) _logEvent(analytics, name, params)
+}
