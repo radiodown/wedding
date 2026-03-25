@@ -21,8 +21,8 @@ export default function VideoSection() {
           <div className="w-12 h-px bg-primary-light" />
         </div>
 
-        <h2 className="font-serif text-2xl text-text-main text-center mb-3 tracking-wide">웨딩 영상</h2>
-        <p className="text-text-sub text-sm text-center mb-8">소중한 순간을 영상으로 담았습니다</p>
+        <h2 className="text-2xl text-text-main text-center mb-3 tracking-wide" style={{ fontFamily: 'Futura, serif' }}>The Grand Dongjak Hotel</h2>
+        <p className="text-text-sub text-sm text-center mb-8">동작구에서 일어나는 특별한 날</p>
 
         {/* 21:9 반응형 YouTube embed */}
         <div className="relative w-full rounded-2xl overflow-hidden shadow-lg border border-border" style={{ paddingTop: 'calc(9 / 21 * 100%)' }}>
