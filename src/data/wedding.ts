@@ -13,7 +13,7 @@ export interface AccountInfo {
 
 export const weddingConfig = {
   // ── 테마 (warm-ivory | modern-white | soft-blush | deep-navy)
-  theme: 'warm-ivory' as string,
+  theme: 'modern-white' as string,
 
   // ── 신랑 / 신부
   groom: {
