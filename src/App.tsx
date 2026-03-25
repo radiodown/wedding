@@ -8,6 +8,7 @@ import GallerySection from './components/GallerySection'
 import VideoSection from './components/VideoSection'
 import StorySection from './components/StorySection'
 import ContactSection from './components/ContactSection'
+import GuestbookSection from './components/GuestbookSection'
 import DevThemeSwitcher from './components/DevThemeSwitcher'
 import BgmPlayer from './components/BgmPlayer'
 
@@ -26,6 +27,7 @@ export default function App() {
       <VideoSection />
       <StorySection />
       <ContactSection />
+      <GuestbookSection />
       <DevThemeSwitcher />
       <BgmPlayer />
     </main>
