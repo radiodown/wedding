@@ -8,9 +8,11 @@ export default function GallerySection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [index, setIndex] = useState(-1)
+  const [showAll, setShowAll] = useState(false)
 
   const { gallery } = weddingConfig
   const slides = gallery.map((g) => ({ src: g.src }))
+  const visible = showAll ? gallery : gallery.slice(0, 6)
 
   return (
     <section ref={ref} className="py-20 px-6 bg-surface">
@@ -30,7 +32,7 @@ export default function GallerySection() {
 
         {/* Masonry-style 2-column grid */}
         <div className="columns-2 gap-3 space-y-3">
-          {gallery.map((photo, i) => (
+          {visible.map((photo, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -48,6 +50,18 @@ export default function GallerySection() {
             </motion.div>
           ))}
         </div>
+
+        {!showAll && gallery.length > 6 && (
+          <button
+            onClick={() => setShowAll(true)}
+            className="mt-6 flex items-center gap-1.5 mx-auto text-text-sub text-sm active:scale-95 transition-transform"
+          >
+            더보기
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 4.5l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        )}
 
         <p className="text-center text-text-sub text-xs mt-6">사진을 클릭하면 크게 볼 수 있습니다</p>
       </motion.div>

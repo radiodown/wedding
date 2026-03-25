@@ -56,18 +56,18 @@ export default function MapSection() {
           )}
         </div>
 
-        {/* 교통 안내 */}
-        <div className="space-y-3 mb-6">
-          <InfoRow icon="🚇" label="지하철" value={subwayText} />
-          {busText && <InfoRow icon="🚌" label="버스" value={busText} />}
-          {venue.parking && <InfoRow icon="🅿️" label="주차" value={venue.parking} />}
-        </div>
-
         {/* 길찾기 버튼 */}
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 mb-6">
           <NavBtn href={naverUrl} label="네이버지도" icon={`${import.meta.env.BASE_URL}icons/naver.png`} />
           <NavBtn href={tmapUrl} label="티맵" icon={`${import.meta.env.BASE_URL}icons/tmap.png`} />
           <NavBtn href={kakaoNaviUrl} label="카카오내비" icon={`${import.meta.env.BASE_URL}icons/kakao.png`} />
+        </div>
+
+        {/* 교통 안내 */}
+        <div className="space-y-3">
+          <InfoRow icon="🚇" label="지하철" value={subwayText} />
+          {busText && <InfoRow icon="🚌" label="버스" value={busText} />}
+          {venue.parking && <InfoRow icon="🅿️" label="주차" value={venue.parking} />}
         </div>
       </motion.div>
     </section>
@@ -76,7 +76,7 @@ export default function MapSection() {
 
 function InfoRow({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
-    <div className="flex items-start gap-3 bg-surface rounded-2xl px-4 py-3 border border-border">
+    <div className="flex items-start gap-3 bg-surface rounded-2xl px-4 py-3 border border-border shadow-sm">
       <span className="text-base mt-0.5">{icon}</span>
       <div>
         <p className="text-xs text-text-sub mb-0.5">{label}</p>

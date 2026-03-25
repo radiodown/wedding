@@ -22,7 +22,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section ref={ref} className="py-20 px-6 bg-surface">
+    <section ref={ref} className="py-20 px-6 bg-bg">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -39,11 +39,24 @@ export default function ContactSection() {
 
         {/* 계좌 정보 */}
         <div className="mb-8">
-          <h3 className="text-sm text-text-sub font-medium mb-3 text-center">마음 전하기</h3>
-          <div className="space-y-2">
-            {accounts.map((acc) => (
-              <AccountCard key={acc.label} account={acc} />
-            ))}
+          <h3 className="text-sm text-text-sub font-medium mb-4 text-center">마음 전하기</h3>
+          <div className="space-y-4">
+            {(['신랑', '신부'] as const).map((side) => {
+              const sideAccounts = accounts.filter((a) => a.label === side)
+              if (!sideAccounts.length) return null
+              return (
+                <div key={side} className="bg-bg rounded-2xl border border-border overflow-hidden shadow-md">
+                  <div className="px-4 py-2 bg-surface border-b border-border">
+                    <p className="text-xs font-medium text-text-sub tracking-wide">{side}측</p>
+                  </div>
+                  <div className="divide-y divide-border">
+                    {sideAccounts.map((acc) => (
+                      <AccountCard key={acc.holder} account={acc} />
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
 
@@ -77,11 +90,10 @@ export default function ContactSection() {
 function AccountCard({ account }: { account: { bank: string; number: string; holder: string; label: string } }) {
   const { copy, copied } = useClipboard()
   return (
-    <div className="bg-bg rounded-xl px-4 py-3 border border-border flex items-center justify-between">
+    <div className="px-4 py-3 flex items-center justify-between">
       <div>
-        <p className="text-xs text-text-sub mb-0.5">{account.label} ({account.bank})</p>
+        <p className="text-xs text-text-sub mb-0.5">{account.holder} · {account.bank}</p>
         <p className="text-text-main text-sm font-medium font-mono">{account.number}</p>
-        <p className="text-text-sub text-xs">{account.holder}</p>
       </div>
       <button
         onClick={() => copy(account.number)}

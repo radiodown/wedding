@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { weddingConfig } from '../data/wedding'
 
@@ -6,6 +6,12 @@ export default function VideoSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const { youtubeId } = weddingConfig
+  const [clicked, setClicked] = useState(false)
+
+  const handleOverlayClick = () => {
+    window.dispatchEvent(new CustomEvent('youtube-playing'))
+    setClicked(true)
+  }
 
   return (
     <section ref={ref} className="py-20 px-6 bg-bg">
@@ -33,6 +39,9 @@ export default function VideoSection() {
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
+          {!clicked && (
+            <div className="absolute inset-0 cursor-pointer" onClick={handleOverlayClick} />
+          )}
         </div>
       </motion.div>
     </section>

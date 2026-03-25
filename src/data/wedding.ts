@@ -59,18 +59,12 @@ export const weddingConfig = {
 
   // ── 연락처
   contacts: [
-    { role: '신랑', name: '진효준', phone: '010-4812-6459' },
-    { role: '신부', name: '김민진', phone: '010-0483-5633' },
-    { role: '신랑 아버지', name: '진수연', phone: '010-3674-6459' },
-    { role: '신랑 어머니', name: '고은경', phone: '010-8680-6459' },
-    { role: '신부 아버지', name: '김종표', phone: '010-5555-6666' },
-    { role: '신부 어머니', name: '김규자', phone: '010-7777-8888' },
   ] as ContactPerson[],
 
   // ── 계좌 정보
   accounts: [
-    { bank: '국민은행', number: '123-456-78901234', holder: '진수연', label: '신랑' },
-    { bank: '국민은행', number: '123-456-78901234', holder: '진효준', label: '신랑' },
+    { bank: '신한은행', number: '604-06-291814', holder: '진수연', label: '신랑' },
+    { bank: '토스뱅크', number: '1000-6133-5941', holder: '진효준', label: '신랑' },
     { bank: '신한은행', number: '110-456-789012',   holder: '김민진', label: '신부' },
   ] as AccountInfo[],
 

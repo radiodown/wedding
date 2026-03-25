@@ -6,8 +6,10 @@ import EventInfoSection from './components/EventInfoSection'
 import MapSection from './components/MapSection'
 import GallerySection from './components/GallerySection'
 import VideoSection from './components/VideoSection'
+import StorySection from './components/StorySection'
 import ContactSection from './components/ContactSection'
 import DevThemeSwitcher from './components/DevThemeSwitcher'
+import BgmPlayer from './components/BgmPlayer'
 
 export default function App() {
   useEffect(() => {
@@ -22,8 +24,10 @@ export default function App() {
       <MapSection />
       <GallerySection />
       <VideoSection />
+      <StorySection />
       <ContactSection />
       <DevThemeSwitcher />
+      <BgmPlayer />
     </main>
   )
 }
