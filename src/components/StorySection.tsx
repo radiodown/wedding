@@ -2,18 +2,14 @@ import { useState, useRef } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 
 const storyPhoto = '' // public/images/ 경로 또는 import로 교체
-const interview = [
+const messages = [
   {
-    q: '처음 만났을 때 어땠나요?',
-    a: '인터뷰 답변을 여기에 입력해주세요.',
+    name: '신랑',
+    text: '하고 싶은 말을 여기에 입력해주세요.',
   },
   {
-    q: '프로포즈는 어떻게 했나요?',
-    a: '인터뷰 답변을 여기에 입력해주세요.',
-  },
-  {
-    q: '앞으로 어떻게 살고 싶으신가요?',
-    a: '인터뷰 답변을 여기에 입력해주세요.',
+    name: '김민진',
+    text: '어색함만 감돌던 화곡역 3번출구 신호등이 잊혀지지 않습니다. 첫 만남에 갈비를 굽던 순간 아차 했습니다. 조금은 체념한 마음으로 그리 길지도 않던 역 주변을 몇바퀴고 걸으며 서로의 과거를 나눴습니다. 나눌수록 반짝이던 서로의 과거에 눈이 반짝였고 서로를 닮고싶어하는 우리였습니다.\n\n도수가 높은 위스키, 달콤했던 망고스틴, 높은 심박수의 애플워치로 웃음이 가득했던 첫만남이었습니다.',
   },
 ]
 
@@ -85,10 +81,10 @@ export default function StorySection() {
               <div className="w-10 h-1 bg-border rounded-full mx-auto mb-6" />
               <h3 className="font-serif text-xl text-text-main text-center mb-6 tracking-wide">두 사람의 이야기</h3>
               <div className="space-y-6">
-                {interview.map((item, i) => (
+                {messages.map((item, i) => (
                   <div key={i}>
-                    <p className="text-text-main text-sm font-medium mb-1.5">Q. {item.q}</p>
-                    <p className="text-text-sub text-sm leading-relaxed">A. {item.a}</p>
+                    <p className="text-text-main text-sm font-medium mb-1.5">{item.name}</p>
+                    <p className="text-text-sub text-sm leading-relaxed whitespace-pre-line">{item.text}</p>
                   </div>
                 ))}
               </div>
