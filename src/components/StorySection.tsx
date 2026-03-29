@@ -4,8 +4,8 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 const storyPhoto = `${import.meta.env.BASE_URL}interview.jpeg`
 const messages = [
   {
-    name: '신랑',
-    text: '하고 싶은 말을 여기에 입력해주세요.',
+    name: '진효준',
+    text: '5월의 화곡동 거리를 두서없이 걸으며\n나눈 이야기들이 기억납니다.\n\n이야기를 들을수록 정말 보석 같은 생각과 경험을 갖고 있다고 생각했습니다. 정작 본인은 보석인지 모르는 모양이었습니다.\n\n서로의 다름에 이끌렸던 시간들이 지나고, 서로 닮아가는 무렵인거 같습니다.',
   },
   {
     name: '김민진',
