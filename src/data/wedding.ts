@@ -76,7 +76,7 @@ export const weddingConfig = {
   })),
 
   // ── YouTube
-  youtubeId: 'bADR5QowGXc',
+  youtubeId: 'PiwnojgoSk0',
 
   // ── 인사말
   greeting: `저희 두 사람이 사랑을 맹세하고\n새로운 가정을 이루려 합니다.\n\n바쁘신 중에도 오셔서\n자리를 빛내 주시면 감사하겠습니다.`,

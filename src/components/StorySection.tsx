@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 
-const storyPhoto = '' // public/images/ 경로 또는 import로 교체
+const storyPhoto = `${import.meta.env.BASE_URL}interview.jpeg`
 const messages = [
   {
     name: '신랑',
