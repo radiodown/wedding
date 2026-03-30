@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap');
 @import "tailwindcss";
 
+img {
+  -webkit-touch-callout: none;
+}
+
 @font-face {
   font-family: "Futura";
   src: url('/fonts/FuturaCyrillicBook.ttf') format('truetype');
