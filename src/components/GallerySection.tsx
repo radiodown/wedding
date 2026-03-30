@@ -44,7 +44,7 @@ export default function GallerySection() {
               className="cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow mb-3"
               onClick={() => setIndex(realIndex)}
             >
-              <img src={photo.thumb} alt={photo.alt} loading="lazy" className="w-full object-cover transition-transform duration-300 hover:scale-105" />
+              <img src={photo.thumb} alt={photo.alt} loading={realIndex < 6 ? 'lazy' : 'eager'} className="w-full object-cover transition-transform duration-300 hover:scale-105" />
             </motion.div>
           )
           return (
