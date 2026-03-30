@@ -75,7 +75,7 @@ export default function StorySection() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="w-full max-w-sm bg-bg rounded-t-3xl px-6 pt-6 pb-10 max-h-screen overflow-y-auto"
+              className="w-full max-w-sm bg-bg rounded-t-3xl px-6 pt-6 pb-10 max-h-[80vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="w-10 h-1 bg-border rounded-full mx-auto mb-6" />
