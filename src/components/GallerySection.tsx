@@ -44,7 +44,7 @@ export default function GallerySection() {
               className="cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow mb-3"
               onClick={() => setIndex(realIndex)}
             >
-              <img src={photo.thumb} alt={photo.alt} loading={realIndex < 6 ? 'lazy' : 'eager'} className="w-full object-cover transition-transform duration-300 hover:scale-105" />
+              <img src={photo.thumb} alt={photo.alt} loading={realIndex < 6 ? 'lazy' : 'eager'} className="w-full object-cover transition-transform duration-300 hover:scale-105" onContextMenu={e => e.preventDefault()} />
             </motion.div>
           )
           return (
@@ -76,6 +76,16 @@ export default function GallerySection() {
         close={() => setIndex(-1)}
         slides={slides}
         on={{ view: ({ index: i }) => setIndex(i) }}
+        render={{
+          slide: ({ slide }) => (
+            <img
+              src={(slide as { src: string }).src}
+              alt=""
+              onContextMenu={e => e.preventDefault()}
+              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+            />
+          ),
+        }}
       />
     </section>
   )

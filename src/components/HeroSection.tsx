@@ -27,6 +27,7 @@ export default function HeroSection() {
           alt="웨딩 커버"
           className="w-full h-full object-cover"
           loading="eager"
+          onContextMenu={e => e.preventDefault()}
         />
       </motion.div>
 

@@ -38,7 +38,7 @@ export default function StorySection() {
           {/* 가로형 사진 */}
           <div className="w-full aspect-[9/6] rounded-2xl overflow-hidden shadow-md border border-border bg-bg mb-6">
             {storyPhoto ? (
-              <img src={storyPhoto} alt="두 사람의 이야기" className="w-full h-full object-cover" />
+              <img src={storyPhoto} alt="두 사람의 이야기" className="w-full h-full object-cover" onContextMenu={e => e.preventDefault()} />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-text-sub text-sm">
                 사진을 등록해주세요
