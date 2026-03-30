@@ -23,7 +23,7 @@ export default function HeroSection() {
         className="w-full max-w-sm mx-auto mt-4 aspect-[3/4] overflow-hidden rounded-xl shadow-2xl"
       >
         <img
-          src={`${import.meta.env.BASE_URL}hero.jpg`}
+          src={`${import.meta.env.BASE_URL}hero.webp`}
           alt="웨딩 커버"
           className="w-full h-full object-cover"
           loading="eager"

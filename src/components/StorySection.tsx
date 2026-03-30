@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 
-const storyPhoto = `${import.meta.env.BASE_URL}interview.jpeg`
+const storyPhoto = `${import.meta.env.BASE_URL}interview.webp`
 const messages = [
   {
     name: '👰🏻‍♀️김민진',
