@@ -64,8 +64,8 @@ export const weddingConfig = {
   // ── 계좌 정보
   accounts: [
     { bank: '신한은행', number: '604-06-291814', holder: '진수연', label: '신랑' },
-    { bank: '토스뱅크', number: '1000-6133-5941', holder: '진효준', label: '신랑' },
-    { bank: '신한은행', number: '110-456-789012',   holder: '김민진', label: '신부' },
+    { bank: '신한은행', number: '110-607-882098', holder: '진효준', label: '신랑' },
+    { bank: '우리은행', number: '1002-459-476307 ',   holder: '김민진', label: '신부' },
   ] as AccountInfo[],
 
   // ── 갤러리
