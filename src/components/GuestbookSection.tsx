@@ -155,29 +155,32 @@ export default function GuestbookSection() {
                 placeholder="이름"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                minLength={2}
                 maxLength={4}
                 className="flex-1 min-w-0 bg-bg rounded-xl px-3 py-2 text-sm text-text-main placeholder:text-text-sub outline-none border border-border focus:border-primary transition-colors"
               />
               <input
                 type="password"
-                placeholder="비밀번호"
+                placeholder="비밀번호 (4~16자)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                minLength={4}
                 maxLength={16}
                 className="flex-1 min-w-0 bg-bg rounded-xl px-3 py-2 text-sm text-text-main placeholder:text-text-sub outline-none border border-border focus:border-primary transition-colors"
               />
             </div>
             <textarea
-              placeholder="축하 메시지를 입력해주세요"
+              placeholder="축하 메시지를 입력해주세요 (250자 이내)"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              maxLength={200}
+              minLength={5}
+              maxLength={250}
               rows={2}
               className="w-full bg-bg rounded-xl px-3 py-2 text-sm text-text-main placeholder:text-text-sub outline-none border border-border focus:border-primary transition-colors resize-none"
             />
             <button
               type="submit"
-              disabled={submitting || name.trim().length < 2 || name.trim().length > 4 || password.trim().length < 4 || password.trim().length > 16 || !text.trim()}
+              disabled={submitting || name.trim().length < 2 || name.trim().length > 4 || password.trim().length < 4 || password.trim().length > 16 || text.trim().length < 5}
               className="w-full bg-primary text-bg py-2.5 rounded-xl text-sm font-medium active:scale-95 transition-transform disabled:opacity-40"
             >
               {submitting ? '등록 중...' : '남기기'}
