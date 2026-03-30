@@ -70,12 +70,12 @@ export const weddingConfig = {
 
   // ── 갤러리
   gallery: [
-    { src: '/wedding/gallery/1.JPG',  thumb: '/wedding/gallery/1.JPG',  alt: '웨딩 사진 1' },
-    { src: '/wedding/gallery/2.JPG',  thumb: '/wedding/gallery/2.JPG',  alt: '웨딩 사진 2' },
-    { src: '/wedding/gallery/3.JPG',  thumb: '/wedding/gallery/3.JPG',  alt: '웨딩 사진 3' },
-    { src: '/wedding/gallery/4.JPG',  thumb: '/wedding/gallery/4.JPG',  alt: '웨딩 사진 4' },
-    { src: '/wedding/gallery/5.JPG',  thumb: '/wedding/gallery/5.JPG',  alt: '웨딩 사진 5' },
-    { src: '/wedding/gallery/6.JPG',  thumb: '/wedding/gallery/6.JPG',  alt: '웨딩 사진 6' },
+    { src: '/wedding/gallery/1.jpg',  thumb: '/wedding/gallery/1.jpg',  alt: '웨딩 사진 1' },
+    { src: '/wedding/gallery/2.jpg',  thumb: '/wedding/gallery/2.jpg',  alt: '웨딩 사진 2' },
+    { src: '/wedding/gallery/3.jpg',  thumb: '/wedding/gallery/3.jpg',  alt: '웨딩 사진 3' },
+    { src: '/wedding/gallery/4.jpg',  thumb: '/wedding/gallery/4.jpg',  alt: '웨딩 사진 4' },
+    { src: '/wedding/gallery/5.jpg',  thumb: '/wedding/gallery/5.jpg',  alt: '웨딩 사진 5' },
+    { src: '/wedding/gallery/6.jpg',  thumb: '/wedding/gallery/6.jpg',  alt: '웨딩 사진 6' },
     { src: '/wedding/gallery/7.jpg',  thumb: '/wedding/gallery/7.jpg',  alt: '웨딩 사진 7' },
     { src: '/wedding/gallery/8.jpg',  thumb: '/wedding/gallery/8.jpg',  alt: '웨딩 사진 8' },
     { src: '/wedding/gallery/9.jpg',  thumb: '/wedding/gallery/9.jpg',  alt: '웨딩 사진 9' },
