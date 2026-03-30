@@ -36,7 +36,7 @@ export default function StorySection() {
           <h2 className="font-serif text-2xl text-text-main text-center mb-8 tracking-wide">두 사람의 이야기</h2>
 
           {/* 가로형 사진 */}
-          <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-border bg-bg mb-6">
+          <div className="w-full aspect-[9/6] rounded-2xl overflow-hidden shadow-md border border-border bg-bg mb-6">
             {storyPhoto ? (
               <img src={storyPhoto} alt="두 사람의 이야기" className="w-full h-full object-cover" />
             ) : (

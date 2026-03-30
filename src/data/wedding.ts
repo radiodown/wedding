@@ -68,12 +68,25 @@ export const weddingConfig = {
     { bank: '신한은행', number: '110-456-789012',   holder: '김민진', label: '신부' },
   ] as AccountInfo[],
 
-  // ── 갤러리 (더미 — Picsum Photos 사용)
-  gallery: Array.from({ length: 9 }, (_, i) => ({
-    src: `https://picsum.photos/seed/wedding${i + 1}/600/800`,
-    thumb: `https://picsum.photos/seed/wedding${i + 1}/300/400`,
-    alt: `웨딩 사진 ${i + 1}`,
-  })),
+  // ── 갤러리
+  gallery: [
+    { src: '/wedding/gallery/1.JPG',   thumb: '/wedding/gallery/1.JPG',   alt: '웨딩 사진 1' },
+    { src: '/wedding/gallery/2.JPG',   thumb: '/wedding/gallery/2.JPG',   alt: '웨딩 사진 2' },
+    { src: '/wedding/gallery/3.JPG',   thumb: '/wedding/gallery/3.JPG',   alt: '웨딩 사진 3' },
+    { src: '/wedding/gallery/4.JPG',   thumb: '/wedding/gallery/4.JPG',   alt: '웨딩 사진 4' },
+    { src: '/wedding/gallery/5.JPG',   thumb: '/wedding/gallery/5.JPG',   alt: '웨딩 사진 5' },
+    { src: '/wedding/gallery/6.JPG',   thumb: '/wedding/gallery/6.JPG',   alt: '웨딩 사진 6' },
+    { src: '/wedding/gallery/7.JPG',   thumb: '/wedding/gallery/7.JPG',   alt: '웨딩 사진 7' },
+    { src: '/wedding/gallery/8.jpg',   thumb: '/wedding/gallery/8.jpg',   alt: '웨딩 사진 8' },
+    { src: '/wedding/gallery/9.JPG',   thumb: '/wedding/gallery/9.JPG',   alt: '웨딩 사진 9' },
+    { src: '/wedding/gallery/10.JPG',  thumb: '/wedding/gallery/10.JPG',  alt: '웨딩 사진 10' },
+    { src: '/wedding/gallery/11.JPG',  thumb: '/wedding/gallery/11.JPG',  alt: '웨딩 사진 11' },
+    { src: '/wedding/gallery/12.JPG',  thumb: '/wedding/gallery/12.JPG',  alt: '웨딩 사진 12' },
+    { src: '/wedding/gallery/13.JPG',  thumb: '/wedding/gallery/13.JPG',  alt: '웨딩 사진 13' },
+    { src: '/wedding/gallery/14.JPG',  thumb: '/wedding/gallery/14.JPG',  alt: '웨딩 사진 14' },
+    { src: '/wedding/gallery/15.jpg', thumb: '/wedding/gallery/15.jpg', alt: '웨딩 사진 15' },
+    { src: '/wedding/gallery/16.jpg', thumb: '/wedding/gallery/16.jpg', alt: '웨딩 사진 16' },
+  ],
 
   // ── YouTube
   youtubeId: 'PiwnojgoSk0',

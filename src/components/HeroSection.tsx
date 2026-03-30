@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { weddingConfig } from '../data/wedding'
-import coverImg from '../assets/DSC07451.jpg'
 
 export default function HeroSection() {
   const { groom, bride, date } = weddingConfig
@@ -24,7 +23,7 @@ export default function HeroSection() {
         className="w-full max-w-sm mx-auto mt-4 aspect-[3/4] overflow-hidden rounded-xl shadow-2xl"
       >
         <img
-          src={coverImg}
+          src={`${import.meta.env.BASE_URL}hero.jpg`}
           alt="웨딩 커버"
           className="w-full h-full object-cover"
           loading="eager"

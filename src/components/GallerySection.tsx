@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
 import { weddingConfig } from '../data/wedding'
@@ -27,37 +27,33 @@ export default function GallerySection() {
           <div className="w-12 h-px bg-primary-light" />
         </div>
 
-        <h2 className="font-serif text-2xl text-text-main text-center mb-8 tracking-wide">갤러리</h2>
+        <h2 className="font-serif text-2xl text-text-main text-center mb-2 tracking-wide">갤러리</h2>
+        <p className="text-center text-text-sub text-xs mb-8">직접 기록한 순간들</p>
 
         {/* Masonry-style 2-column grid */}
-        <div className="columns-2 gap-3 space-y-3">
-          {gallery.slice(0, 6).map((photo, i) => (
+        {(() => {
+          const visible = showAll ? gallery : gallery.slice(0, 6)
+          const left = visible.filter((_, i) => i % 2 === 0)
+          const right = visible.filter((_, i) => i % 2 === 1)
+          const renderItem = (photo: typeof gallery[0], realIndex: number, colIndex: number) => (
             <motion.div
-              key={i}
+              key={realIndex}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.05 * i, duration: 0.5 }}
-              className="break-inside-avoid cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow"
-              onClick={() => setIndex(i)}
+              transition={{ delay: 0.05 * colIndex, duration: 0.5 }}
+              className="cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow mb-3"
+              onClick={() => setIndex(realIndex)}
             >
               <img src={photo.thumb} alt={photo.alt} loading="lazy" className="w-full object-cover transition-transform duration-300 hover:scale-105" />
             </motion.div>
-          ))}
-          <AnimatePresence>
-            {showAll && gallery.slice(6).map((photo, i) => (
-              <motion.div
-                key={6 + i}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.07 * i, duration: 0.45 }}
-                className="break-inside-avoid cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                onClick={() => setIndex(6 + i)}
-              >
-                <img src={photo.thumb} alt={photo.alt} loading="lazy" className="w-full object-cover transition-transform duration-300 hover:scale-105" />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+          )
+          return (
+            <div className="flex gap-3">
+              <div className="flex-1">{left.map((photo, i) => renderItem(photo, i * 2, i))}</div>
+              <div className="flex-1">{right.map((photo, i) => renderItem(photo, i * 2 + 1, i))}</div>
+            </div>
+          )
+        })()}
 
         {!showAll && gallery.length > 6 && (
           <button
