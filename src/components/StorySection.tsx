@@ -5,7 +5,7 @@ const storyPhoto = `${import.meta.env.BASE_URL}interview.jpeg`
 const messages = [
   {
     name: '진효준',
-    text: '5월의 화곡동 거리를 두서없이 걸으며\n나눈 이야기들이 기억납니다.\n\n이야기를 들을수록 정말 보석 같은 생각과 경험을 갖고 있다고 느꼈습니다. \n정작 본인은 보석인지 모르는 모양이었습니다.\n그래서 더 오래 듣고 싶었습니다.\n\n그 사람의 시간과 선택, 그리고 그 안에 담긴 고민들이\n조용히 빛을 내고 있다는 걸 느꼈습니다.\n어쩌면 그 빛은 화려하지 않아서 더 오래 바라보게 되는 종류였는지도 모르겠습니다.\n\n지금은 서로의 다름에 이끌렸던 시간들이 지나고, 서로 닮아가는 무렵인 것 같습니다.',
+    text: ' 5월의 화곡동 거리를 두서없이 걸으며 나눈 이야기들이 기억납니다.\n\n 이야기를 들을수록 정말 보석 같은 생각과 경험을 갖고 있다고 느꼈습니다. 정작 본인은 보석인지 모르는 모양이었습니다. 그래서 더 오래 듣고 싶었습니다.\n\n 시간이 지날수록 그 사람의 시간과 선택, 그리고 그 안에 담긴 고민들이 조용히 빛을 내고 있다는 걸 느꼈습니다. 어쩌면 그 빛은 화려하지 않아서 더 오래 바라보게 되는 종류였는지도 모르겠습니다.',
   },
   {
     name: '김민진',
@@ -75,7 +75,7 @@ export default function StorySection() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="w-full max-w-sm bg-bg rounded-t-3xl px-6 pt-6 pb-10 max-h-[80vh] overflow-y-auto"
+              className="w-full max-w-sm bg-bg rounded-t-3xl px-6 pt-6 pb-10 max-h-screen overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="w-10 h-1 bg-border rounded-full mx-auto mb-6" />
