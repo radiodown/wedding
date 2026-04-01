@@ -96,6 +96,6 @@ export const weddingConfig = {
 
   // ── OG / SEO
   siteTitle: '진효준 ♥ 김민진 결혼합니다',
-  siteDescription: '2026년 6월 14일 일요일, 가천컨벤션센터에서 결혼합니다.',
+  siteDescription: '2026.06.14\n13시 40분 가천컨벤션센터',
   siteUrl: 'https://radiodown.github.io/wedding/',
 }

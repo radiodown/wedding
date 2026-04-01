@@ -24,7 +24,7 @@ export default function KakaoShareButton() {
       objectType: 'feed',
       content: {
         title: siteTitle,
-        description: '2026.06.14\n13시 40분 가천컨벤션센터',
+        description: siteDescription,
         imageUrl: `${siteUrl}og-image.jpg`,
         link: {
           mobileWebUrl: siteUrl,
