@@ -92,7 +92,7 @@ export const weddingConfig = {
   youtubeId: 'PiwnojgoSk0',
 
   // ── 인사말
-  greeting: `두 사람이 만나\n이제 함께하려 합니다.\n\n소중한 분들을 모시고\n이 기쁜 날을 함께하고자 합니다.\n오셔서 함께해 주시면 감사하겠습니다.`,
+  greeting: `두 사람이 만나 이제 함께하려 합니다.\n\n소중한 분들을 모시고\n이 기쁜 날을 함께하고자 합니다.\n오셔서 함께해 주시면 감사하겠습니다.`,
 
   // ── OG / SEO
   siteTitle: '진효준 ♥ 김민진 결혼합니다',
