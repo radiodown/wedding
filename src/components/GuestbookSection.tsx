@@ -1,11 +1,15 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
-  collection, addDoc, deleteDoc, doc, query, orderBy, onSnapshot, serverTimestamp,
+  collection, addDoc, deleteDoc, doc, query, orderBy, getDocs,
+  startAfter, limit, serverTimestamp,
 } from 'firebase/firestore'
+import type { DocumentSnapshot } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { weddingConfig } from '../data/wedding'
 import { containsProfanity } from '../lib/profanityFilter'
+
+const PAGE_SIZE = 10
 
 interface Message {
   id: string
@@ -35,18 +39,55 @@ export default function GuestbookSection() {
   const [deleteError, setDeleteError] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
-  useEffect(() => {
-    const q = query(collection(db, 'guestbook'), orderBy('createdAt', 'desc'))
-    return onSnapshot(q, (snap) => {
-      setMessages(snap.docs.map((d) => ({
-        id: d.id,
-        name: d.data().name,
-        text: d.data().text,
-        passwordHash: d.data().passwordHash,
-        createdAt: d.data().createdAt?.toDate() ?? null,
-      })))
-    })
+  const [loading, setLoading] = useState(false)
+
+  const lastDocRef = useRef<DocumentSnapshot | null>(null)
+  const loadingRef = useRef(false)
+  const hasMoreRef = useRef(true)
+  const listRef = useRef<HTMLDivElement>(null)
+  const sentinelRef = useRef<HTMLDivElement>(null)
+
+  const fetchPage = useCallback(async () => {
+    if (loadingRef.current || !hasMoreRef.current) return
+    loadingRef.current = true
+    setLoading(true)
+
+    const q = lastDocRef.current
+      ? query(collection(db, 'guestbook'), orderBy('createdAt', 'desc'), startAfter(lastDocRef.current), limit(PAGE_SIZE))
+      : query(collection(db, 'guestbook'), orderBy('createdAt', 'desc'), limit(PAGE_SIZE))
+
+    const snap = await getDocs(q)
+    const newMessages: Message[] = snap.docs.map(d => ({
+      id: d.id,
+      name: d.data().name,
+      text: d.data().text,
+      passwordHash: d.data().passwordHash,
+      createdAt: d.data().createdAt?.toDate() ?? null,
+    }))
+
+    lastDocRef.current = snap.docs[snap.docs.length - 1] ?? null
+    hasMoreRef.current = snap.docs.length === PAGE_SIZE
+    setMessages(prev => [...prev, ...newMessages])
+    loadingRef.current = false
+    setLoading(false)
   }, [])
+
+  useEffect(() => {
+    fetchPage()
+  }, [fetchPage])
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) fetchPage()
+      },
+      { root: listRef.current, threshold: 0.1 }
+    )
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [fetchPage])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -55,18 +96,25 @@ export default function GuestbookSection() {
     if (!text.trim()) return
     if (containsProfanity(name) || containsProfanity(text)) {
       alert('부적절한 표현이 포함되어 있습니다.')
-      setSubmitting(false)
       return
     }
     setSubmitting(true)
     try {
       const passwordHash = await hashPassword(password)
-      await addDoc(collection(db, 'guestbook'), {
+      const docRef = await addDoc(collection(db, 'guestbook'), {
         name: name.trim(),
         text: text.trim(),
         passwordHash,
         createdAt: serverTimestamp(),
       })
+      // 로컬에 즉시 반영 (맨 위에 추가)
+      setMessages(prev => [{
+        id: docRef.id,
+        name: name.trim(),
+        text: text.trim(),
+        passwordHash,
+        createdAt: new Date(),
+      }, ...prev])
       setText('')
       setPassword('')
     } finally {
@@ -85,6 +133,7 @@ export default function GuestbookSection() {
       return
     }
     await deleteDoc(doc(db, 'guestbook', deleteTarget.id))
+    setMessages(prev => prev.filter(m => m.id !== deleteTarget.id))
     setDeleteTarget(null)
     setDeletePassword('')
     setDeleteError(false)
@@ -110,8 +159,8 @@ export default function GuestbookSection() {
           <p className="text-text-sub text-sm text-center mb-8">축하의 말씀을 남겨주세요</p>
 
           {/* 채팅 목록 */}
-          <div className="space-y-3 mb-6 min-h-[80px] max-h-[300px] overflow-y-auto pr-1 scrollbar-thin">
-            {messages.length === 0 && (
+          <div ref={listRef} className="space-y-3 mb-6 min-h-[80px] max-h-[300px] overflow-y-auto pr-1 scrollbar-thin">
+            {messages.length === 0 && !loading && (
               <p className="text-center text-text-sub text-sm py-6">아직 메시지가 없습니다</p>
             )}
             {messages.map((msg) => (
@@ -145,6 +194,11 @@ export default function GuestbookSection() {
                 </div>
               </div>
             ))}
+            {/* 스크롤 감지 센티넬 */}
+            <div ref={sentinelRef} className="h-px" />
+            {loading && (
+              <p className="text-center text-text-sub text-xs py-2">불러오는 중...</p>
+            )}
           </div>
 
           {/* 작성 폼 */}

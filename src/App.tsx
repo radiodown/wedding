@@ -30,7 +30,7 @@ export default function App() {
       <StorySection />
       <ContactSection />
       <GuestbookSection />
-      <DevThemeSwitcher />
+<DevThemeSwitcher />
       <BgmPlayer />
     </main>
   )

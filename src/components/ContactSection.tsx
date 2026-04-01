@@ -3,22 +3,36 @@ import { motion, useInView } from 'framer-motion'
 import { weddingConfig } from '../data/wedding'
 import { useClipboard } from '../hooks/useClipboard'
 
+declare global {
+  interface Window {
+    Kakao: {
+      init: (key: string) => void
+      isInitialized: () => boolean
+      Share: { sendDefault: (options: object) => void }
+    }
+  }
+}
+
 export default function ContactSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { accounts, siteUrl } = weddingConfig
-  const { copy: copyLink, copied: linkCopied } = useClipboard()
+  const { accounts } = weddingConfig
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      await navigator.share({
-        title: weddingConfig.siteTitle,
-        text: weddingConfig.siteDescription,
-        url: siteUrl,
-      }).catch(() => {})
-    } else {
-      copyLink(siteUrl)
-    }
+  const handleShare = () => {
+    const { Kakao } = window
+    if (!Kakao) return
+    if (!Kakao.isInitialized()) Kakao.init(import.meta.env.VITE_KAKAO_MAP_KEY)
+    const { siteTitle, siteUrl } = weddingConfig
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: siteTitle,
+        description: '2026.06.14\n13시 40분 가천컨벤션센터 5층',
+        imageUrl: `${siteUrl}og-image.jpg`,
+        link: { mobileWebUrl: siteUrl, webUrl: siteUrl },
+      },
+      buttons: [{ title: '청첩장 보기', link: { mobileWebUrl: siteUrl, webUrl: siteUrl } }],
+    })
   }
 
   return (
@@ -67,8 +81,8 @@ export default function ContactSection() {
             onClick={handleShare}
             className="w-full flex items-center justify-center gap-2 bg-primary text-bg py-4 rounded-2xl font-medium text-sm active:scale-95 transition-transform shadow-md"
           >
-            <span>🔗</span>
-            <span>{linkCopied ? '링크 복사됨!' : '청첩장 공유하기'}</span>
+            <span>💬</span>
+            <span>카카오톡으로 공유하기</span>
           </button>
         </div>
 
