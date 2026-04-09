@@ -10,12 +10,31 @@ export default function BgmPlayer() {
     audio.volume = 0.4
     audio.loop = true
 
+    const startOnInteraction = () => {
+      audio.play().then(() => {
+        setPlaying(true)
+      }).catch(() => {})
+      window.removeEventListener('touchstart', startOnInteraction)
+      window.removeEventListener('click', startOnInteraction)
+      window.removeEventListener('scroll', startOnInteraction)
+    }
+
+    window.addEventListener('touchstart', startOnInteraction, { once: true })
+    window.addEventListener('click', startOnInteraction, { once: true })
+    window.addEventListener('scroll', startOnInteraction, { once: true })
+
     const stopForVideo = () => {
       audio.pause()
       setPlaying(false)
     }
     window.addEventListener('youtube-playing', stopForVideo)
-    return () => window.removeEventListener('youtube-playing', stopForVideo)
+
+    return () => {
+      window.removeEventListener('touchstart', startOnInteraction)
+      window.removeEventListener('click', startOnInteraction)
+      window.removeEventListener('scroll', startOnInteraction)
+      window.removeEventListener('youtube-playing', stopForVideo)
+    }
   }, [])
 
   const toggle = () => {
